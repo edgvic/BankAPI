@@ -18,19 +18,21 @@ var app = builder.Build();
 // Add data seeding
 using (var scope = app.Services.CreateScope())
 {
+
+    // Get the BankingContext instance with mocked data
     var context = scope.ServiceProvider.GetRequiredService<BankingContext>();
 
     var user = new User { Name = "Edgar Domenech", Email = "edgar.domenech@test.com" };
     context.Users.Add(user);
 
-    var account = new Account { IBAN = "ES1234567890123456789012", Balance = 1000m, User = user };
-    context.Accounts.Add(account);
-
-    var card = new Card { Number = "1234567812345678", Type = "Debit", Limit = 500m, Balance = 1000m, IsActive = true, PIN = "1234", Account = account };
+    var card = new Card { Number = "1234567812345678", Type = "Debit", Limit = 500m, Balance = 1000m, IsActive = true, PIN = "1234" };
     context.Cards.Add(card);
 
-    var transaction1 = new Transaction { Account = account, Amount = 200m, Type = "Deposit", Date = DateTime.Now };
-    var transaction2 = new Transaction { Account = account, Amount = 100m, Type = "Withdrawal", Date = DateTime.Now };
+    var account = new Account { IBAN = "ES1234567890123456789012", Balance = 1000m, User = user, Card = card };
+    context.Accounts.Add(account);
+
+    var transaction1 = new Transaction { AccountId = account.Id, Amount = 200m, Type = "Deposit", Date = DateTime.Now };
+    var transaction2 = new Transaction { AccountId = account.Id, Amount = 100m, Type = "Withdrawal", Date = DateTime.Now };
     context.Transactions.AddRange(transaction1, transaction2);
 
     context.SaveChanges();

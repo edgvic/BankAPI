@@ -31,7 +31,7 @@ namespace BankAPI.Services
             decimal fee = isExternalBank ? 1.5m : 0; // Example fee
             decimal totalAmount = amount + fee;
 
-            if (account.Balance < totalAmount)
+            if (account.Balance < totalAmount && account.Card.Type == "Debit")
             {
                 throw new Exception("Insufficient funds");
             }
@@ -42,7 +42,7 @@ namespace BankAPI.Services
                 AccountId = accountId,
                 Amount = -amount,
                 Date = DateTime.Now,
-                Type = "Withdrawal"
+                Type = "Withdrawal",
             });
 
             if (isExternalBank)
@@ -52,7 +52,7 @@ namespace BankAPI.Services
                     AccountId = accountId,
                     Amount = -fee,
                     Date = DateTime.Now,
-                    Type = "Fee"
+                    Type = "Fee",
                 });
             }
 
@@ -73,7 +73,7 @@ namespace BankAPI.Services
                 AccountId = accountId,
                 Amount = amount,
                 Date = DateTime.Now,
-                Type = "Deposit"
+                Type = "Deposit",
             });
 
             await _context.SaveChangesAsync();
@@ -107,7 +107,7 @@ namespace BankAPI.Services
                 AccountId = sourceAccountId,
                 Amount = -amount,
                 Date = DateTime.Now,
-                Type = "Transfer"
+                Type = "Transfer",
             });
 
             _context.Transactions.Add(new Transaction
@@ -115,7 +115,7 @@ namespace BankAPI.Services
                 AccountId = destinationAccount.Id,
                 Amount = amount,
                 Date = DateTime.Now,
-                Type = "Transfer"
+                Type = "Transfer",
             });
 
             await _context.SaveChangesAsync();

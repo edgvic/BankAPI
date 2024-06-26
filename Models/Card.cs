@@ -10,6 +10,5 @@
         public bool IsActive { get; set; }
         public string PIN { get; set; }
         public int AccountId { get; set; }
-        public Account Account { get; set; }
     }
 }

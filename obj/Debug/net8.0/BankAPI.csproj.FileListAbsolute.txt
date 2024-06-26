@@ -43,3 +43,5 @@ C:\Users\edgar.domenech\Documents\GitHub\BankAPI\obj\Debug\net8.0\BankAPI.pdb
 C:\Users\edgar.domenech\Documents\GitHub\BankAPI\obj\Debug\net8.0\BankAPI.genruntimeconfig.cache
 C:\Users\edgar.domenech\Documents\GitHub\BankAPI\obj\Debug\net8.0\ref\BankAPI.dll
 C:\Users\edgar.domenech\Documents\GitHub\BankAPI\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
+C:\Users\edgar.domenech\Documents\GitHub\BankAPI\bin\Debug\net8.0\Castle.Core.dll
+C:\Users\edgar.domenech\Documents\GitHub\BankAPI\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.Proxies.dll
