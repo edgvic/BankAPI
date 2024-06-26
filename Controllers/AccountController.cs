@@ -22,11 +22,11 @@ namespace BankAPI.Controllers
         }
 
         [HttpPost("{accountId}/withdraw")]
-        public async Task<IActionResult> Withdraw(int accountId, [FromBody] decimal amount, [FromQuery] bool isExternalBank)
+        public async Task<IActionResult> Withdraw(int accountId, [FromBody] WithdrawRequest request, [FromQuery] bool isExternalBank)
         {
             try
             {
-                await _accountService.WithdrawAsync(accountId, amount, isExternalBank);
+                await _accountService.WithdrawAsync(accountId, request.Amount, isExternalBank);
                 return Ok();
             }
             catch (Exception ex)
@@ -36,11 +36,11 @@ namespace BankAPI.Controllers
         }
 
         [HttpPost("{accountId}/deposit")]
-        public async Task<IActionResult> Deposit(int accountId, [FromBody] decimal amount)
+        public async Task<IActionResult> Deposit(int accountId, [FromBody] DepositRequest request)
         {
             try
             {
-                await _accountService.DepositAsync(accountId, amount);
+                await _accountService.DepositAsync(accountId, request.Amount);
                 return Ok();
             }
             catch (Exception ex)
