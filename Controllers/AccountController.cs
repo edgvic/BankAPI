@@ -62,5 +62,33 @@ namespace BankAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpPost("{accountId}/activateCard")]
+        public async Task<IActionResult> Activate(int accountId)
+        {
+            try
+            {
+                await _accountService.ActivateAsync(accountId);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("{accountId}/changePIN")]
+        public async Task<IActionResult> ChangePIN(int accountId, [FromBody] ChangePINRequest request)
+        {
+            try
+            {
+                await _accountService.ChangePINAsync(accountId, request.NewPIN);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }
