@@ -31,6 +31,11 @@ namespace BankAPI.Services
             decimal fee = isExternalBank ? 1.5m : 0; // Example fee
             decimal totalAmount = amount + fee;
 
+            if (totalAmount > account.Card.Limit)
+            {
+                throw new Exception("Withdrawal amount exceeds card limit");
+            }
+
             if (account.Balance < totalAmount && account.Card.Type == "Debit")
             {
                 throw new Exception("Insufficient funds");
